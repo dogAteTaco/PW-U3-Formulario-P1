@@ -1,0 +1,150 @@
+Objetivo: Desarrollar un formulario que incluya id, nombre, apellidos, teléfono, correo electrónico, edad y fecha de nacimiento en html con css y bootstrap y que al presionar un botón de Enviar realice validaciones en javascript  si hay error debe enviar un mensaje 
+
+El id es numérico de 5 dígitos exactamente
+El nombre y el apellido no pueden estar vacíos
+El teléfono debe tener el siguiente formato (###)###-#### donde # representa un dígito
+El correo electrónico debe ser valido utilice expresiones regulares
+La edad debe ser un numero positivo
+La fecha de nacimiento debe valida. 
+Pasos:
+
+Paso 1: Configurar la estructura básica del formulario en HTML
+
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Formulario de Validación</title>
+    <!-- Agregar Bootstrap CSS -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.5.0/dist/css/bootstrap.min.css">
+</head>
+<body>
+    <div class="container">
+        <h1>Formulario de Validación</h1>
+        <form id="formulario">
+            <div class="mb-3">
+                <label for="id">ID (5 dígitos exactos)</label>
+                <input type="text" class="form-control" id="id" name="id">
+            </div>
+            <div class="mb-3">
+                <label for="nombre">Nombre</label>
+                <input type="text" class="form-control" id="nombre" name="nombre">
+            </div>
+            <div class="mb-3">
+                <label for="apellidos">Apellidos</label>
+                <input type="text" class="form-control" id="apellidos" name="apellidos">
+            </div>
+            <div class="mb-3">
+                <label for="telefono">Teléfono (###)###-####</label>
+                <input type="text" class="form-control" id="telefono" name="telefono">
+            </div>
+            <div class="mb-3">
+                <label for="correo">Correo Electrónico</label>
+                <input type="email" class="form-control" id="correo" name="correo">
+            </div>
+            <div class="mb-3">
+                <label for="edad">Edad (Número positivo)</label>
+                <input type="text" class="form-control" id="edad" name="edad">
+            </div>
+            <div class="mb-3">
+                <label for="fechaNacimiento">Fecha de Nacimiento (AAAA-MM-DD)</label>
+                <input type="date" class="form-control" id="fechaNacimiento" name="fechaNacimiento">
+            </div>
+            <button type="submit" class="btn btn-primary">Enviar</button>
+        </form>
+        <div id="mensajeError" class="text-danger mt-3"></div>
+    </div>
+
+    <!-- Agregar Bootstrap JS y tu archivo de JavaScript personalizado -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.5.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="script.js"></script>
+</body>
+</html>
+Paso 2: Estilizar el formulario con CSS
+
+Puedes personalizar el formulario aún más utilizando CSS según tus preferencias. Crea un archivo "styles.css" y vincúlalo a tu HTML
+
+Paso 3: Agregar validaciones en JavaScript
+
+Crea un archivo "script.js" y vincúlalo a tu HTML para agregar las validaciones JavaScript. Aquí tienes un ejemplo de cómo hacerlo:
+
+document.addEventListener("DOMContentLoaded", function() {
+    const formulario = document.getElementById("formulario");
+    const mensajeError = document.getElementById("mensajeError");
+ 
+
+    formulario.addEventListener("submit", function(event) {
+        event.preventDefault();
+ 
+
+        // Obtener los valores de los campos
+        const id = formulario.id.value;
+        const nombre = formulario.nombre.value;
+        const apellidos = formulario.apellidos.value;
+        const telefono = formulario.telefono.value;
+        const correo = formulario.correo.value;
+        const edad = formulario.edad.value;
+        const fechaNacimiento = formulario.fechaNacimiento.value;
+ 
+
+        // Validar ID (5 dígitos exactos)
+        if (!/^\d{5}$/.test(id)) {
+            mensajeError.textContent = "El ID debe tener 5 dígitos exactos.";
+            return;
+        }
+ 
+
+        // Validar nombre y apellidos (no pueden estar vacíos)
+        if (nombre.trim() === "" || apellidos.trim() === "") {
+            mensajeError.textContent = "El nombre y los apellidos no pueden estar vacíos.";
+            return;
+        }
+ 
+
+        // Validar teléfono (###)###-####
+        if (!/^\d3
+\d{3}-\d{4}$/.test(telefono)) {
+            mensajeError.textContent = "El teléfono debe tener el formato (###)###-####.";
+            return;
+        }
+ 
+
+        // Validar correo electrónico
+        if (!/^[\w-]+(\.[\w-]+)*@[\w-]+(\.[\w-]+)+$/.test(correo)) {
+            mensajeError.textContent = "El correo electrónico no es válido.";
+            return;
+        }
+ 
+
+        // Validar edad (número positivo)
+        const edadNum = parseInt(edad);
+        if (isNaN(edadNum) || edadNum <= 0) {
+            mensajeError.textContent = "La edad debe ser un número positivo.";
+            return;
+        }
+ 
+
+        // Validar fecha de nacimiento (AAAA-MM-DD)
+        if (!/^\d{4}-\d{2}-\d{2}$/.test(fechaNacimiento)) {
+            mensajeError.textContent = "La fecha de nacimiento debe tener el formato AAAA-MM-DD.";
+            return;
+        }
+ 
+
+        // Si todas las validaciones pasaron, puedes enviar el formulario o realizar otras acciones aquí
+        mensajeError.textContent = "Formulario enviado con éxito.";
+    });
+});
+Paso 4: Análisis
+
+Explique el funcionamiento de la etiqueta input en HTML, indicando los diferentes argumentos que puede tener.
+Explique como puede configurarse la etiqueta button
+Explique el método addEventlistener y como se utiliza en este proyecto
+Explique la forma en que son validadas cada una de las entradas.
+Modifique el código de tal forma que envíe un mensaje de error que incluya todas las observaciones
+Utilice expresiones regulares para validar las entradas
+Modifique el código de tal forma que debajo de cada entrada errónea envíe un error en color rojo
+ 
+Envíe el proyecto en un archivo comprimido deben contener las 3 variantes
+Envíe la liga de github
